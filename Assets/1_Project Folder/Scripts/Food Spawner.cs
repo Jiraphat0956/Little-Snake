@@ -5,14 +5,18 @@ public class FoodSpawner : Singleton<FoodSpawner>
 {
     [SerializeField] GameObject foodPrefab;
 
+    GameObject spawnedFood;
     private void Start()
     {
-        InputManager.OnEscape += SpawnFood;
+        SpawnFood();
     }
     public void SpawnFood()
     {
         Vector2 position = GridSystem.Instance.GetRandomPosition();
 
-        GameObject food = Instantiate(foodPrefab, position, Quaternion.identity);
+        if (spawnedFood != null) Destroy(spawnedFood);
+        spawnedFood = Instantiate(foodPrefab, position, Quaternion.identity);
+
+        SnakeController.Instance.FoodPosition = position;
     }
 }

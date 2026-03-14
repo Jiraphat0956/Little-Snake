@@ -9,10 +9,12 @@ public class SnakeController : Singleton<SnakeController>
     [SerializeField] List<Transform> segmentList = new List<Transform>();
 
     Vector2 currentDirection;
+
+    public Vector2 FoodPosition { private get; set; }
+
     void Start()
     {
         InputManager.OnMove += Move;
-        InputManager.OnEscape += Grow;
     }
 
     void Move(Vector2 direction)
@@ -27,6 +29,16 @@ public class SnakeController : Singleton<SnakeController>
         }
         firstSegment.position = new Vector2(firstSegment.position.x + direction.x, firstSegment.position.y + direction.y);
         firstSegment.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg);
+
+        if (IsSelfCollision())
+        {
+            
+        }
+        if (IsFoodCollision())
+        {
+            Grow();
+            FoodSpawner.Instance.SpawnFood();
+        }
     }
 
     void Grow()
@@ -40,4 +52,20 @@ public class SnakeController : Singleton<SnakeController>
         segmentList.Add(newSegment.transform);
     }
     public List<Transform> GetSegmentList() => segmentList;
+    bool IsSelfCollision()
+    {
+        if (segmentList.Count < 2) return false;
+
+        Vector2 headPosition = segmentList.First().position;
+        for (int i = 1; i < segmentList.Count; i++)
+        {
+            if ((Vector2)segmentList[i].position == headPosition) return true;
+        }
+        return false;
+    }
+    bool IsFoodCollision()
+    {
+        Vector2 headPosition = segmentList.First().position;
+        return headPosition == FoodPosition;
+    }
 }

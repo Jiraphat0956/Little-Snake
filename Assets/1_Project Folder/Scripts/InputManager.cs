@@ -16,13 +16,15 @@ public class InputManager : Singleton<InputManager>
     {
         base.Awake();
         _input = new InputSystem_Actions();
-
-
-        _input.Player.Move.performed += ctx => { OnMove?.Invoke(ctx.ReadValue<Vector2>()); };
-        //_input.Player.Move.canceled += ctx => {  OnMove?.Invoke(Vector2.zero); };
-
         _input.Player.Escape.performed += ctx => OnEscape?.Invoke();
 
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W)) OnMove?.Invoke(Vector2.up);
+        if (Input.GetKeyDown(KeyCode.S)) OnMove?.Invoke(Vector2.down);
+        if (Input.GetKeyDown(KeyCode.A)) OnMove?.Invoke(Vector2.left);
+        if (Input.GetKeyDown(KeyCode.D)) OnMove?.Invoke(Vector2.right);
     }
 
     #region Enable/Disable Input Actions
