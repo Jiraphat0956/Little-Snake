@@ -10,8 +10,6 @@ public class InputManager : Singleton<InputManager>
     public static event InputDelegate OnEscape;
 
     public static event InputGenericDelegate<Vector2> OnMove;
-    public static event InputGenericDelegate<Vector2> OnRotate;
-    public static event InputGenericDelegate<Vector2> OnScroll;
 
 
     protected override void Awake()
@@ -21,7 +19,7 @@ public class InputManager : Singleton<InputManager>
 
 
         _input.Player.Move.performed += ctx => { OnMove?.Invoke(ctx.ReadValue<Vector2>()); };
-        _input.Player.Move.canceled += ctx => {  OnMove?.Invoke(Vector2.zero); };
+        //_input.Player.Move.canceled += ctx => {  OnMove?.Invoke(Vector2.zero); };
 
         _input.Player.Escape.performed += ctx => OnEscape?.Invoke();
 
