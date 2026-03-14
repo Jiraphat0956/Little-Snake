@@ -13,6 +13,10 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
     public enum EState
     {
         None,
+        Menu,
+        Play,
+        Pause,
+        End
     }
 
     [SerializeField] GameContext context;
@@ -20,6 +24,9 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
     public static GameStateMachine Instance { get; private set; }
 
     public delegate void GameGenericEvent<T>(T param);
+    public delegate void GameEvent();
+
+    public GameEvent OnGameTick;
 
     private void Awake()
     {
@@ -36,6 +43,10 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
     private void InitializeStates()
     {
         States.Add(EState.None, new GameNoneState(context, EState.None));
+        States.Add(EState.Menu, new GameMenuState(context, EState.Menu));
+        States.Add(EState.Play, new GamePlayState(context, EState.Play));
+        States.Add(EState.Pause, new GamePauseState(context, EState.Pause));
+        States.Add(EState.End, new GameEndState(context, EState.End));
 
         CurrentState = States[initialState];// For Test
     }
@@ -43,6 +54,13 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
     {
         base.Start();
 
+        SnakeController.Instance.OnSnakeDead += SetGameOver;
+    }
+
+    public void SetGameOver()
+    {
+        context.IsWin = false;
+        context.IsEndGame = true;
     }
 
 }

@@ -1,10 +1,14 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 public class GameContext
 {
+    public List<SO_LevelData> levelDataList;
     public GameStateMachine StateMachine { get; set; }
-    public bool IsPlayCutscene { get; set; }
-    public bool IsPlayDialogue { get; set; }
-    public bool IsUsePhone { get; set; }
+    public SO_LevelData currentLevelData;// { get; set; }
+    public float TickTime{ get; set; }
+    public bool IsPlaying { get; set; }
+    public bool IsWin { get; set; }
+    public bool IsEndGame { get; set; }
 }

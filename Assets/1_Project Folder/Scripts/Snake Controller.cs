@@ -8,31 +8,37 @@ public class SnakeController : Singleton<SnakeController>
     [SerializeField] GameObject segmentPrefab;
     [SerializeField] List<Transform> segmentList = new List<Transform>();
 
-    Vector2 currentDirection;
+    Vector2 currentDirection = new Vector2(0, 1);
+
+    public delegate void SnakeEvent();
+    public SnakeEvent OnSnakeDead;
 
     public Vector2 FoodPosition { private get; set; }
 
     void Start()
     {
-        InputManager.OnMove += Move;
+        GameStateMachine.Instance.OnGameTick += Move;
     }
-
-    void Move(Vector2 direction)
+    public bool ChangeDirection(Vector2 direction)
+    {
+        if (direction == -currentDirection) return false;
+        currentDirection = direction;
+        return true;
+    }
+    void Move()
     {
         Transform firstSegment = segmentList.First();
-        if (direction == -currentDirection) return;
-        currentDirection = direction;
         for (int i = segmentList.Count - 1; i > 0; i--)
         {
             segmentList[i].position = segmentList[i - 1].position;
             segmentList[i].rotation = segmentList[i - 1].rotation;
         }
-        firstSegment.position = new Vector2(firstSegment.position.x + direction.x, firstSegment.position.y + direction.y);
-        firstSegment.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg);
+        firstSegment.position = new Vector2(firstSegment.position.x + currentDirection.x, firstSegment.position.y + currentDirection.y);
+        firstSegment.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-currentDirection.x, currentDirection.y) * Mathf.Rad2Deg);
 
         if (IsSelfCollision())
         {
-            
+            OnSnakeDead?.Invoke();
         }
         if (IsFoodCollision())
         {
