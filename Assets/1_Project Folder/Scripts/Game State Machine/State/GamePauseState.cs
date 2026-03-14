@@ -9,6 +9,8 @@ public class GamePauseState : GameState
 
     public override void EnterState(GameStateMachine.EState previousKey)
     {
+        UIManager.Instance.ShowUIPanel(EUIScreen.Pause);
+
         InputManager.OnEscape += ResumeGame;
     }
     public override void UpdateState()

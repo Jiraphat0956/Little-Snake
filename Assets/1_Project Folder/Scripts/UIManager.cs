@@ -24,6 +24,13 @@ public class UIManager : Singleton<UIManager>
     {
 
     }
+    public void ShowUIPanel(EUIScreen screen)
+    {
+        for(int i = 0; i< UIPanelList.Count; i++)
+        {
+            UIPanelList[i].gameObject.SetActive(i == (int)screen);
+        }
+    }
     #endregion
 
     #region Gameplay

@@ -9,7 +9,7 @@ public class GameEndState : GameState
 
     public override void EnterState(GameStateMachine.EState previousKey)
     {
-        Debug.Log("Entered Game End State");
+        UIManager.Instance.ShowUIPanel(EUIScreen.End);
     }
     public override void UpdateState()
     {

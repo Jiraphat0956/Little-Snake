@@ -9,6 +9,9 @@ public class GamePlayState : GameState
 
     public override void EnterState(GameStateMachine.EState previousKey)
     {
+
+        UIManager.Instance.ShowUIPanel(EUIScreen.Gameplay);
+
         InputManager.OnMove += MoveSnake;
         InputManager.OnEscape += PauseGame;
     }

@@ -9,7 +9,7 @@ public class GameMenuState : GameState
 
     public override void EnterState(GameStateMachine.EState previousKey)
     {
-
+        UIManager.Instance.ShowUIPanel(EUIScreen.MainMenu);
     }
     public override void UpdateState()
     {

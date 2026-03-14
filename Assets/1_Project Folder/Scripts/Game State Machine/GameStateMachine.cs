@@ -56,11 +56,20 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
 
         SnakeController.Instance.OnSnakeDead += SetGameOver;
     }
-
+    public void SetStartGame()
+    { 
+        context.IsPlaying = true;
+    }
     public void SetGameOver()
     {
         context.IsWin = false;
         context.IsEndGame = true;
+    }
+    public void SetBackToMainMenu()
+    {
+        context.IsPlaying = false;
+        context.IsEndGame = false;
+        context.IsWin = false;
     }
 
 }

@@ -6,11 +6,8 @@ public enum MusicArea
 }
 public enum EUIScreen
 {
-    None,
+    MainMenu,
     Gameplay,
-    Inspect,
-    Cutscene,
-    Transition,
-    Video,
-    Phone,
+    Pause,
+    End
 }
