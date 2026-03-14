@@ -10,6 +10,8 @@ public class GameMenuState : GameState
     public override void EnterState(GameStateMachine.EState previousKey)
     {
         UIManager.Instance.ShowUIPanel(EUIScreen.MainMenu);
+        FoodSpawner.Instance.ResetFood();
+        SnakeController.Instance.ResetSnake();
     }
     public override void UpdateState()
     {

@@ -74,4 +74,15 @@ public class SnakeController : Singleton<SnakeController>
         Vector2 headPosition = segmentList.First().position;
         return headPosition == FoodPosition;
     }
+
+    public void ResetSnake()
+    {
+        for (int i = 1; i < segmentList.Count; i++)
+        {
+            Destroy(segmentList[i].gameObject);
+        }
+        segmentList.RemoveRange(1, segmentList.Count - 1);
+        segmentList.First().position = Vector2.zero;
+        currentDirection = new Vector2(0, 1);
+    }
 }

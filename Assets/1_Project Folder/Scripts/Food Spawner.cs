@@ -6,10 +6,6 @@ public class FoodSpawner : Singleton<FoodSpawner>
     [SerializeField] GameObject foodPrefab;
 
     GameObject spawnedFood;
-    private void Start()
-    {
-        SpawnFood();
-    }
     public void SpawnFood()
     {
         Vector2 position = GridSystem.Instance.GetRandomPosition();
@@ -18,5 +14,10 @@ public class FoodSpawner : Singleton<FoodSpawner>
         spawnedFood = Instantiate(foodPrefab, position, Quaternion.identity);
 
         SnakeController.Instance.FoodPosition = position;
+    }
+    public void ResetFood()
+    {
+        if (spawnedFood != null) Destroy(spawnedFood);
+        spawnedFood = null;
     }
 }

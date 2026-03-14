@@ -11,6 +11,7 @@ public class GamePlayState : GameState
     {
 
         UIManager.Instance.ShowUIPanel(EUIScreen.Gameplay);
+        FoodSpawner.Instance.SpawnFood();
 
         InputManager.OnMove += MoveSnake;
         InputManager.OnEscape += PauseGame;
