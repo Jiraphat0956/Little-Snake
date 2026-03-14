@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridSystem : MonoBehaviour
+public class GridSystem : Singleton<GridSystem>
 {
     [SerializeField] Vector2Int maxGridPosition;
     [SerializeField] Vector2Int minGridPosition;
