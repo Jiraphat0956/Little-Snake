@@ -54,10 +54,13 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
     {
         base.Start();
 
+        SnakeController.Instance.OnSnakeEat += AddScore;
         SnakeController.Instance.OnSnakeDead += SetGameOver;
     }
-    public void SetStartGame()
-    { 
+    #region For Set Game State
+    public void SetStartGame(int level)
+    {
+        context.currentLevelData = context.levelDataList[level];
         context.IsPlaying = true;
     }
     public void SetGameOver()
@@ -71,5 +74,17 @@ public class GameStateMachine : StateManager<GameStateMachine.EState>
         context.IsEndGame = false;
         context.IsWin = false;
     }
+    #endregion
 
+    public void AddScore()
+    {
+        context.CurrentScore += 1;
+        UIManager.Instance.UpdateGamePlayScore(context.CurrentScore, context.currentLevelData.Goal);
+
+        if (context.CurrentScore >= context.currentLevelData.Goal)
+        {
+            context.IsWin = true;
+            context.IsEndGame = true;
+        }
+    }
 }

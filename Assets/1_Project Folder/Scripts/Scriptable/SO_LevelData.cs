@@ -5,4 +5,5 @@ public class SO_LevelData : ScriptableObject
 {
     public string DisplayName;
     public float TickTime;
+    public int Goal;
 }

@@ -10,6 +10,8 @@ public class GameEndState : GameState
     public override void EnterState(GameStateMachine.EState previousKey)
     {
         UIManager.Instance.ShowUIPanel(EUIScreen.End);
+
+        UIManager.Instance.UpdateEndGameInfo(Context.IsWin, Context.currentLevelData.DisplayName, Context.CurrentScore, Context.CurrentPlayTime);
     }
     public override void UpdateState()
     {

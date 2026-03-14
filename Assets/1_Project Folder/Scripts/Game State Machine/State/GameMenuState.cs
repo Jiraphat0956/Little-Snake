@@ -12,6 +12,8 @@ public class GameMenuState : GameState
         UIManager.Instance.ShowUIPanel(EUIScreen.MainMenu);
         FoodSpawner.Instance.ResetFood();
         SnakeController.Instance.ResetSnake();
+        Context.CurrentScore = 0;
+        UIManager.Instance.UpdateGamePlayScore(Context.CurrentScore, 0);
     }
     public override void UpdateState()
     {
@@ -20,7 +22,7 @@ public class GameMenuState : GameState
 
     public override void ExitState(GameStateMachine.EState nextKey)
     {
-
+        if(nextKey == GameStateMachine.EState.Play)FoodSpawner.Instance.SpawnFood();
     }
 
     public override GameStateMachine.EState GetNextState()

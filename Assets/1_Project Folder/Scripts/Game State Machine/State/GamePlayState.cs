@@ -11,13 +11,13 @@ public class GamePlayState : GameState
     {
 
         UIManager.Instance.ShowUIPanel(EUIScreen.Gameplay);
-        FoodSpawner.Instance.SpawnFood();
 
         InputManager.OnMove += MoveSnake;
         InputManager.OnEscape += PauseGame;
     }
     public override void UpdateState()
     {
+        UpdatePlayTime();
         Context.TickTime += Time.deltaTime;
         if (Context.TickTime >= Context.currentLevelData.TickTime)
         {
@@ -35,11 +35,11 @@ public class GamePlayState : GameState
 
     public override GameStateMachine.EState GetNextState()
     {
-        if (Context.IsEndGame)
+        if (Context.IsEndGame || Context.IsWin)
         {
             return GameStateMachine.EState.End;
         }
-        if (Context.IsPause)
+        else if (Context.IsPause)
         {
             return GameStateMachine.EState.Pause;
         }
@@ -60,7 +60,7 @@ public class GamePlayState : GameState
     {
 
     }
-
+    #region Delegate Methods
     void MoveSnake(Vector2 direction)
     {
         bool changeDirectionSuccess = SnakeController.Instance.ChangeDirection(direction);
@@ -72,4 +72,12 @@ public class GamePlayState : GameState
     {
         Context.IsPause = true;
     }
+    #endregion
+
+    void UpdatePlayTime()
+    {
+        Context.CurrentPlayTime += Time.deltaTime;
+        UIManager.Instance.UpdateGamePlayPlayTime(Context.CurrentPlayTime);
+    }
+
 }

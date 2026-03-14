@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameEndPanel: UIPanel
 {
+    [SerializeField] TextMeshProUGUI gameOverText;
+
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI timeText;
@@ -20,8 +22,9 @@ public class GameEndPanel: UIPanel
     {
         mainMenuButton.onClick.RemoveListener(GoToMainMenu);
     }
-    public void SetPanelInfo(int level, int score, float time)
+    public void SetPanelInfo(bool isWin, string level, int score, float time)
     {
+        gameOverText.text = isWin ? "You Win!" : "Game Over!";
         levelText.text = $"Level: {level}";
         scoreText.text = $"Score: {score}";
         timeText.text = $"Time: {time:F2}s";

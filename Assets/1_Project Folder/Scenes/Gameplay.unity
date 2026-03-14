@@ -236,7 +236,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.3065148, g: 0.5283019, b: 0.5283019, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2056,6 +2056,18 @@ PrefabInstance:
       propertyPath: initialState
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3870501235275821519, guid: 25b04e5ac5c073444ae343fd6f0f6deb, type: 3}
+      propertyPath: context.levelDataList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870501235275821519, guid: 25b04e5ac5c073444ae343fd6f0f6deb, type: 3}
+      propertyPath: 'context.levelDataList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 593ae73c467d31c4381abe4bf6a1f1e2, type: 2}
+    - target: {fileID: 3870501235275821519, guid: 25b04e5ac5c073444ae343fd6f0f6deb, type: 3}
+      propertyPath: 'context.levelDataList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dbeb15b8c2a96b4b846933ac5e8cb5f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

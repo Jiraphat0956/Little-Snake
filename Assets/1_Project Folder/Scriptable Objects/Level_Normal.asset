@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa456f9da54bc26429fb9917db1afaa8, type: 3}
-  m_Name: Level_Easy
+  m_Name: Level_Normal
   m_EditorClassIdentifier: Assembly-CSharp::SO_LevelData
-  DisplayName: Easy
-  TickTime: 1
-  Goal: 10
+  DisplayName: Normal
+  TickTime: 0.8
+  Goal: 50

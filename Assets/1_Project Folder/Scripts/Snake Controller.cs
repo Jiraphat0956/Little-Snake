@@ -11,6 +11,7 @@ public class SnakeController : Singleton<SnakeController>
     Vector2 currentDirection = new Vector2(0, 1);
 
     public delegate void SnakeEvent();
+    public SnakeEvent OnSnakeEat;
     public SnakeEvent OnSnakeDead;
 
     public Vector2 FoodPosition { private get; set; }
@@ -56,6 +57,7 @@ public class SnakeController : Singleton<SnakeController>
         GameObject newSegment = Instantiate(segmentPrefab, newSegmentPosition, lastSegment.rotation);
         newSegment.transform.SetParent(transform);
         segmentList.Add(newSegment.transform);
+        OnSnakeEat?.Invoke();
     }
     public List<Transform> GetSegmentList() => segmentList;
     bool IsSelfCollision()
@@ -77,12 +79,17 @@ public class SnakeController : Singleton<SnakeController>
 
     public void ResetSnake()
     {
+        Transform firstSegment = segmentList.First();
+
         for (int i = 1; i < segmentList.Count; i++)
         {
             Destroy(segmentList[i].gameObject);
         }
+
         segmentList.RemoveRange(1, segmentList.Count - 1);
-        segmentList.First().position = Vector2.zero;
+        firstSegment.position = Vector2.zero;
+        firstSegment.rotation = Quaternion.identity;
+
         currentDirection = new Vector2(0, 1);
     }
 }
