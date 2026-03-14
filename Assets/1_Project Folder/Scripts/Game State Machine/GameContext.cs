@@ -9,6 +9,7 @@ public class GameContext
     public SO_LevelData currentLevelData;// { get; set; }
     public float TickTime{ get; set; }
     public bool IsPlaying { get; set; }
+    public bool IsPause { get; set; }
     public bool IsWin { get; set; }
     public bool IsEndGame { get; set; }
 }

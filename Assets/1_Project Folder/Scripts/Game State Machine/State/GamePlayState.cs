@@ -10,6 +10,7 @@ public class GamePlayState : GameState
     public override void EnterState(GameStateMachine.EState previousKey)
     {
         InputManager.OnMove += MoveSnake;
+        InputManager.OnEscape += PauseGame;
     }
     public override void UpdateState()
     {
@@ -24,6 +25,8 @@ public class GamePlayState : GameState
     public override void ExitState(GameStateMachine.EState nextKey)
     {
         InputManager.OnMove -= MoveSnake;
+        InputManager.OnEscape -= PauseGame;
+
     }
 
     public override GameStateMachine.EState GetNextState()
@@ -31,6 +34,10 @@ public class GamePlayState : GameState
         if (Context.IsEndGame)
         {
             return GameStateMachine.EState.End;
+        }
+        if (Context.IsPause)
+        {
+            return GameStateMachine.EState.Pause;
         }
         return StateKey;
     }
@@ -56,5 +63,9 @@ public class GamePlayState : GameState
         if (!changeDirectionSuccess) return;
         Context.TickTime = 0; 
         Context.StateMachine.OnGameTick?.Invoke();
+    }
+    void PauseGame()
+    {
+        Context.IsPause = true;
     }
 }

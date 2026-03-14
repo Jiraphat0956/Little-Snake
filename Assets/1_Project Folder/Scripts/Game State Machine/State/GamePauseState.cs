@@ -9,7 +9,7 @@ public class GamePauseState : GameState
 
     public override void EnterState(GameStateMachine.EState previousKey)
     {
-
+        InputManager.OnEscape += ResumeGame;
     }
     public override void UpdateState()
     {
@@ -18,11 +18,16 @@ public class GamePauseState : GameState
 
     public override void ExitState(GameStateMachine.EState nextKey)
     {
+        InputManager.OnEscape -= ResumeGame;
 
     }
 
     public override GameStateMachine.EState GetNextState()
     {
+        if (!Context.IsPause)
+        {
+            return GameStateMachine.EState.Play;
+        }
         return StateKey;
     }
 
@@ -39,5 +44,9 @@ public class GamePauseState : GameState
     public override void OnTriggerStay(Collider other)
     {
 
+    }
+    void ResumeGame()
+    {
+        Context.IsPause = false;
     }
 }
