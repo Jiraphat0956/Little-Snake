@@ -23,6 +23,10 @@ public class GameEndState : GameState
 
     public override GameStateMachine.EState GetNextState()
     {
+        if (!Context.IsEndGame)
+        {
+            return GameStateMachine.EState.Menu;
+        }
         return StateKey;
     }
 
