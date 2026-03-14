@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SnakeController : MonoBehaviour
+public class SnakeController : Singleton<SnakeController>
 {
     [SerializeField] GameObject segmentPrefab;
     [SerializeField] List<Transform> segmentList = new List<Transform>();
@@ -18,7 +18,6 @@ public class SnakeController : MonoBehaviour
     void Move(Vector2 direction)
     {
         Transform firstSegment = segmentList.First();
-
         if (direction == -currentDirection) return;
         currentDirection = direction;
         for (int i = segmentList.Count - 1; i > 0; i--)
@@ -40,4 +39,5 @@ public class SnakeController : MonoBehaviour
         newSegment.transform.SetParent(transform);
         segmentList.Add(newSegment.transform);
     }
+    public List<Transform> GetSegmentList() => segmentList;
 }
