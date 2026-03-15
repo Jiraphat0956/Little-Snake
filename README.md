@@ -1,2 +1,2 @@
 # Little-Snake
-This is another snake game.
+The project focuses on gameplay logic, movement system, and code structure.
